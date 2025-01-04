@@ -1,0 +1,86 @@
+{% if error_message %}
+<p style="color: red;">{{ error_message }}</p>
+{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Translator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #6da7ea, #e87786, #dc6cd8);
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        select, button {
+            padding: 10px 15px;
+            margin: 10px 5px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background: #4a90e2;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #357ab8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Google Translator</h1>
+        <form method="POST">
+            <textarea name="source_text" placeholder="Enter text to translate..." required></textarea>
+            <div>
+                <select name="src_lang" required>
+                    <option value="" disabled selected>Select Source Language</option>
+                    {% for code, lang in languages.items() %}
+                    <option value="{{ code }}">{{ lang }}</option>
+                    {% endfor %}
+                </select>
+                <select name="dest_lang" required>
+                    <option value="" disabled selected>Select Target Language</option>
+                    {% for code, lang in languages.items() %}
+                    <option value="{{ code }}">{{ lang }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit">Translate</button>
+        </form>
+        {% if translated_text %}
+        <h2>Translated Text:</h2>
+        <p>{{ translated_text }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
